@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account</title>
+</head>
+<body>
+    <p>Edit My Account</p>
+    <a href="/quotes">Back</a>
+    <a href="/logout">Logout</a>
+
+    <div>
+
+        <form action="/update" method="post">
+            {%csrf_token%}
+            {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" id="" value={{user.first_name}}>
+            
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" id="" value={{user.last_name}}>
+            
+            <label for="email">Email</label>
+            <input type="email" name="email" id="" value={{user.email}}>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

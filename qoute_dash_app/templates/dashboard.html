@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Welcome, {{user.first_name}} {{user.last_name}}!</h3>
+    <a href="/myaccount/{{user.id}}">Edit my account</a>
+    <a href="/logout">Log Out</a>
+
+    <p>Quotes</p>
+
+    {%for quote in all_quotes%}
+    <div>
+        <form action="/liked_quote/{{quote.id}}" method="post">
+            {% csrf_token%}
+            <p>{{quote.user_thought.first_name}} {{quote.user_thought.last_name}}:</p> 
+            <p>{{quote.quote}}</p> 
+            
+            <p>Posted by: <a href="user/{{quote.id}}">{{quote.user_thought.first_name}} {{quote.user_thought.last_name}}</a></p>
+            <p>93 People like this</p>
+           
+            {%if quote.user_thought == user%}
+                <a href= "/remove/{{quote.id}}"><button>Delete</button></a>
+            {%endif%}
+            <button type="submit">Like!</button>
+        </form>
+    </div>
+    {%endfor%} 
+    <!-- Add a qoute -->
+    <p>Add a Quote!</p>
+    <div>
+        {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="/add_quote" method="post">
+            {%csrf_token%}
+            <label for="author">Author</label>
+            <input type="text" name="author" id="">
+            
+            <label for="quote_bar">Quote</label>
+            <textarea name="quote_bar" id="" cols="30" rows="10"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    </div>
+    
+</body>
+</html>

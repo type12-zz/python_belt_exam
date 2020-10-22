@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View</title>
+</head>
+<body>
+    <a href="/quotes">Back</a>
+    <a href="/logout">Logout</a>
+
+    <p>{{quote.user_thought.first_name}} {{quote.user_thought.last_name}} Quote's</p>
+    
+    {%for quote in all_quotes%}
+        <div>
+            <p>{{quote.quote}}</p>
+        </div>
+    {%endfor%}
+</body>
+</html>
